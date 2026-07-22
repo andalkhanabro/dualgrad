@@ -25,13 +25,11 @@ class Neuron:
 
 # a layer of neurons stacked atop eachother, sharing an input (from the previous layer, or raw input to NN)
 
-
 class Layer:
 
     def __init__(self, nin, nout):
 
         self.neurons = [Neuron(nin) for _ in range(nout)] # make nout neurons of nin weights per neuron
-
 
     def __call__(self, x):
 
@@ -48,7 +46,35 @@ class Layer:
         return params
 
 
+class MLP:
 
+    # a multi-layer perceptron; feed forward neural network of fully connected hidden layers 
+
+    def __init__(self, nin, nouts): 
+
+        sizes = [nin] + nouts # 
+        self.layers = [Layer(sizes[i], sizes[i+1]) for i in range(len(nouts))]
+
+
+    def __call__(self, x):
+
+        for layer in self.layers:
+            x = layer(x)
+
+        return x
+
+    def parameters(self):
+
+        params = [p for l in self.layers for p in l.parameters()]
+        return params 
+
+    
+
+
+
+               
+
+    
 
 
 
