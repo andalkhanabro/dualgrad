@@ -22,10 +22,35 @@ class Neuron:
 
         return self.w + [self.b] # just returns the tunable parameters for this neuron 
 
-    
+
+# a layer of neurons stacked atop eachother, sharing an input (from the previous layer, or raw input to NN)
 
 
-    
+class Layer:
+
+    def __init__(self, nin, nout):
+
+        self.neurons = [Neuron(nin) for _ in range(nout)] # make nout neurons of nin weights per neuron
+
+
+    def __call__(self, x):
+
+        # pass x through each neuron, and output a list of n(x) where n(x) is output from each neuron 
+
+        outs = [n(x) for n in self.neurons]
+        return outs[0] if len(outs) == 1 else outs
+
+    # a flattened list of parameters for this layer 
+
+    def parameters(self) -> list[Value]:
+
+        params = [p for n in self.neurons for p in n.parameters()]
+        return params
+
+
+
+
+
 
     
 
