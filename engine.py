@@ -186,5 +186,3 @@ class Value:
         # every node is appended after all its children in order[] (e.g in A->B and A->C), order = [BCA]
         # so in reversed(order), every child is appended AFTER its parent node (this is what we want) --> order = [ABC] or [ACB], both valid topological orders 
         # so every node.grad is fully calculated before we pass it to its children and propagate the gradient 
-
-        
